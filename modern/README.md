@@ -18,3 +18,7 @@ GitHub sync is manual: Check remote, then Push or Restore. Expected blob SHA pro
 
 ## Deploy
 CI checks tests and build on PR. After merging and testing, change Settings → Pages → Source to GitHub Actions and manually run Deploy Life100 React on main. The legacy site remains live until that switch and successful deployment. Test migration, mobile install, offline reload and real gateway calls first. If legacy service worker controls the page, close/reopen or clear only service worker/cache, not local storage.
+
+## Engineering workflow
+
+Use Node 24 (`.nvmrc`). Install with `npm ci` once the generated `package-lock.json` is committed. The CI bootstrap publishes the resolved lockfile as an artifact if it is not yet present; download and commit that exact lockfile before deploying. `npm run check` runs ESLint, unit tests and the production build. `npm run test:e2e` runs desktop/mobile Chromium smoke tests against the built preview. `npm run format` applies Prettier; `npm run format:check` is available but is not a required CI gate until the existing compressed source is formatted. Production deployment requires the lockfile, checks, browser tests, and a high-severity production dependency audit. Dependabot proposes weekly compatible updates. TypeScript 6 is intentional because the configured TypeScript ESLint version does not officially support TypeScript 7 yet.

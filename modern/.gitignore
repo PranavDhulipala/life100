@@ -5,3 +5,6 @@ dist/
 .env.*
 .wrangler/
 *.local
+
+playwright-report/
+test-results/

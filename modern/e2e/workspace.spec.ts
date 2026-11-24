@@ -1,0 +1,22 @@
+import { test, expect } from '@playwright/test'
+test('notes survive reload, and workspace search finds them', async ({page}) => {
+  await page.goto('./')
+  await expect(page.getByRole('heading', {name:'Today',exact:true})).toBeVisible()
+  await page.getByRole('button', {name:'Notes',exact:true}).click()
+  await page.getByRole('button', {name:'New',exact:true}).click()
+  await page.getByLabel('Title', {exact:true}).fill('Robotics reading')
+  await page.getByLabel('Markdown', {exact:true}).fill('State estimation and sensor fusion')
+  await expect(page.getByText('State estimation and sensor fusion', {exact:true}).last()).toBeVisible()
+  await page.reload()
+  await page.getByRole('button', {name:'Search',exact:true}).click()
+  await page.getByRole('searchbox').or(page.getByRole('textbox', {name:'Search',exact:true})).fill('Robotics reading')
+  await expect(page.getByRole('button', {name:/Robotics reading/})).toBeVisible()
+  await page.getByRole('button', {name:/Robotics reading/}).click()
+  await expect(page.getByLabel('Title', {exact:true})).toHaveValue('Robotics reading')
+})
+test('AI can be opened without credentials', async ({page}) => {
+  await page.goto('./')
+  await page.getByRole('button', {name:'AI Studio',exact:true}).click()
+  await expect(page.getByRole('button', {name:'OpenAI',exact:true})).toBeVisible()
+  await expect(page.getByRole('button', {name:'Claude',exact:true})).toBeVisible()
+})
