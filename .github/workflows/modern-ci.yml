@@ -32,11 +32,6 @@ jobs:
         with:
           node-version: '24'
           package-manager-cache: false
-      - name: Resolve lockfile if bootstrapping
-        run: |
-          if [ ! -f package-lock.json ]; then
-            npm install --package-lock-only --ignore-scripts
-          fi
       - run: npm ci
       - run: npm run lint
       - run: npm test
@@ -45,13 +40,6 @@ jobs:
       - run: npm run test:e2e
       - name: Production dependency audit
         run: npm audit --omit=dev --audit-level=high
-      - name: Upload resolved lockfile
-        if: always()
-        uses: actions/upload-artifact@v7
-        with:
-          name: life100-package-lock
-          path: modern/package-lock.json
-          if-no-files-found: ignore
       - name: Upload browser diagnostics
         if: failure()
         uses: actions/upload-artifact@v7
