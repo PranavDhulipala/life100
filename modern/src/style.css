@@ -10,3 +10,49 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
 .markdown table{max-width:100%}.markdown pre{max-width:100%}
 @media(max-width:850px){main{padding-bottom:calc(100px + env(safe-area-inset-bottom))}.item button{min-height:44px;min-width:44px}.week button{min-height:48px}.row>input:not([type=checkbox]){flex:1 1 120px}.toggle{min-height:44px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:0.01ms!important;transition-duration:0.01ms!important}}
+
+/* Life100: a personal field notebook, not an ornamental SaaS dashboard. */
+:root{--canvas:#111820;--panel:#19232d;--line:#354352;--muted:#aebdca;--accent:#a9d7c2;--focus:#b7e2f4;--text-secondary:#b3c1cd;background:var(--canvas);color:#edf3f5}
+aside{background:#151e27;padding:24px 14px;gap:24px}
+.mark{background:#a9d7c2;color:#142c25;border-radius:12px;font-size:15px;letter-spacing:-.04em}
+.brand small{font-size:11px;letter-spacing:.06em;margin-top:4px}
+main{padding-top:38px}
+.eyebrow{font-size:12px;font-weight:500;letter-spacing:0;color:var(--muted)}
+h1{font-family:ui-serif,Georgia,Cambria,serif;font-weight:500;letter-spacing:-.035em}
+h1,h2,h3{text-wrap:balance}
+.hero{background:#202f3b;border:0;border-left:4px solid var(--accent);border-radius:0 14px 14px 0;padding:22px 26px}
+.hero h2{font-family:ui-serif,Georgia,Cambria,serif;font-weight:500;letter-spacing:-.025em}
+.hero p{color:var(--muted)}
+.stats{gap:0;border:1px solid var(--line);border-radius:12px;background:var(--panel);overflow:hidden}
+.stats>div{border:0;border-right:1px solid var(--line);border-radius:0;padding:16px 18px;background:transparent}
+.stats>div:last-child{border-right:0}.stats strong,.week b{font-variant-numeric:tabular-nums}
+.panel{border-radius:12px;padding:22px}
+.panel h2{font-size:17px;font-weight:650}
+button,.button{background:#273542;touch-action:manipulation}
+button:not(:disabled):hover,.button:hover{border-color:var(--accent);background:#304452}
+button.primary:not(:disabled):hover{background:#c3e5d6;color:#12251b}
+nav button.active,.selected{background:#30483e!important;color:#c5ead8!important;border-color:#4d7361!important}
+nav button:active,button:active{transform:translateY(1px)}
+nav button,.button,button{transition:background-color 120ms,border-color 120ms,transform 100ms}
+input,textarea,select{background:#131d26;border-color:#425364}
+.markdown{max-width:75ch;font-size:16px;line-height:1.75}
+.markdown h1,.markdown h2,.markdown h3{text-wrap:balance}
+.skip-link{position:fixed;left:12px;top:12px;z-index:50;transform:translateY(-200%);background:var(--accent);color:#12251b;padding:12px;border-radius:8px}
+.skip-link:focus{transform:none}
+.nav-more{display:none}
+@media(max-width:850px){
+ aside{padding:5px 8px calc(5px + env(safe-area-inset-bottom));background:#151e27}
+ aside nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:3px;overflow:visible;position:relative}
+ aside nav button{min-width:0;width:100%;font-size:11px;white-space:normal;min-height:50px;text-align:center}
+ aside nav .nav-primary{grid-row:1}
+ aside nav .nav-more{display:grid;grid-column:5;grid-row:1}
+ aside nav .nav-secondary{display:none}
+ aside nav .nav-secondary.nav-open{display:flex;justify-content:flex-start;grid-column:1/-1;background:#243441;border:1px solid var(--line);font-size:14px;padding:10px 14px;min-height:44px}
+ aside nav:has(.nav-open){padding-top:6px}
+ main{padding-top:22px;padding-bottom:calc(100px + env(safe-area-inset-bottom))}
+ .app:has(.nav-open) main{padding-bottom:calc(360px + env(safe-area-inset-bottom))}
+ .hero{padding:18px 16px}
+ .panel{padding:16px}.stats>div{padding:14px 12px}.stats>div:nth-child(2){border-right:0}.stats>div:nth-child(-n+2){border-bottom:1px solid var(--line)}
+ .week button{padding-inline:1px}.week button small{font-size:10px}
+}
+@media(prefers-reduced-motion:reduce){button,nav button,.button{transition:none!important;transform:none}}

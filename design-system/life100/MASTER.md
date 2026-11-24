@@ -27,3 +27,6 @@ Mobile-first personal workspace, calm and content-first; prioritize fast daily c
 - Verify mobile/desktop browser tests and visual review at the four viewport sizes.
 - Keep existing data, API and migration behavior intact.
 - Do not add a runtime dependency only to run a design skill. Review any external skill scripts before running them; never send private vault contents or secrets to design tools.
+
+## Visual refresh
+Field-notebook concept: slate-blue surfaces, desaturated mint highlights, serif date and page headings, compact divided daily stats instead of a decorative gradient. Mobile has four frequent destinations and a More control; secondary destinations remain available. Typography and restrained interaction guidance adapted from [Anthropic frontend-design](https://github.com/anthropics/skills/tree/main/skills/frontend-design). Review criteria from [Vercel Web Design Guidelines](https://github.com/vercel-labs/agent-skills/tree/main/skills/web-design-guidelines); browser verification approach from [Anthropic webapp-testing](https://github.com/anthropics/skills/tree/main/skills/webapp-testing). UI UX Pro Max remains the primary system reference; do not mix conflicting style engines. The article's other skills are optional for specific work, not installed runtime packages. No external skill scripts executed.
