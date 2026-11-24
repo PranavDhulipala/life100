@@ -1,0 +1,21 @@
+name: Life100 React CI
+on:
+  pull_request:
+    paths:
+      - 'modern/**'
+      - '.github/workflows/modern-ci.yml'
+  workflow_dispatch:
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: modern
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm install
+      - run: npm test
+      - run: npm run build

@@ -1,0 +1,6 @@
+name = "life100-gateway"
+main = "worker/index.ts"
+compatibility_date = "2026-11-24"
+[vars]
+ALLOWED_ORIGIN = "https://pranavdhulipala.github.io"
+# Set GITHUB_REPOSITORY, OPENAI_MODEL, ANTHROPIC_MODEL in your deployment.
