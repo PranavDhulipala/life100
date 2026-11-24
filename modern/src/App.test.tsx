@@ -7,8 +7,8 @@ afterEach(cleanup)
 describe('Life100 app', () => {
   it('creates a note and persists its Markdown', () => {
     render(<App />)
-    fireEvent.click(screen.getByRole('button', {name:'Notes',exact:true}))
-    fireEvent.click(screen.getByRole('button', {name:'New',exact:true}))
+    fireEvent.click(screen.getByRole('button', {name:/^Notes$/}))
+    fireEvent.click(screen.getByRole('button', {name:/^New$/}))
     fireEvent.change(screen.getByLabelText('Title'), {target:{value:'Study note'}})
     fireEvent.change(screen.getByLabelText('Markdown'), {target:{value:'Learning React'}})
     expect(screen.getByText('Learning React', {selector:'p'})).toBeTruthy()

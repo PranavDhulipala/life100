@@ -14,7 +14,38 @@ concurrency:
   group: life100-pages
   cancel-in-progress: false
 jobs:
+  lockfile:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      actions: read
+    outputs:
+      sha: ${{ steps.prepare.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.sha }}
+      - name: Recover the exact CI-generated lockfile once
+        id: prepare
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if [ ! -f modern/package-lock.json ]; then
+            gh run download 45387476331 --repo "$GITHUB_REPOSITORY" --name life100-package-lock --dir modern
+            echo '5a5d68c4a48605c636596c8369de700e6f136fa2086aaf80009157e210ebbbe3  modern/package-lock.json' | sha256sum -c -
+            node --input-type=module -e 'import fs from "node:fs"; import assert from "node:assert/strict"; const p=JSON.parse(fs.readFileSync("modern/package.json")); const l=JSON.parse(fs.readFileSync("modern/package-lock.json")); assert.equal(l.lockfileVersion,3); for(const k of ["dependencies","devDependencies"])assert.deepEqual(l.packages[""][k],p[k]);'
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add modern/package-lock.json
+            git commit -m "Commit CI-resolved npm lockfile"
+            git push origin HEAD:refs/heads/main
+          fi
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
   deploy:
+    needs: lockfile
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -24,6 +55,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
+          ref: ${{ needs.lockfile.outputs.sha }}
           persist-credentials: false
       - uses: actions/setup-node@v7
         with:
