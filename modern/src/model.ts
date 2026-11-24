@@ -1,4 +1,5 @@
 import {z} from 'zod'
+import {knowledgeSchema} from './knowledge'
 const str=z.string();const id=z.string().min(1);const pct=z.number().min(0).max(100)
 export const taskSchema=z.object({id,title:str,date:str,time:str,minutes:z.number().nonnegative(),goalId:str,priority:str,done:z.boolean()})
 export const goalSchema=z.object({id,title:str,area:str,target:str,due:str,detail:str,progress:pct})
@@ -6,7 +7,7 @@ export const courseSchema=z.object({id,title:str,group:str,due:str,detail:str,pr
 export const noteSchema=z.object({id,title:str,body:str,tags:z.array(str),createdAt:str,updatedAt:str})
 export const journalSchema=z.object({body:str,wins:str,lessons:str,tomorrow:str})
 export const daySchema=z.object({weight:str,vo2:str,sleep:str,steps:str,mood:str,study:str,workout:z.boolean(),german:z.boolean(),outside:z.boolean(),social:z.boolean()})
-export const vaultSchema=z.object({version:z.literal(1),tasks:z.array(taskSchema),goals:z.array(goalSchema),courses:z.array(courseSchema),notes:z.array(noteSchema),journal:z.record(str,journalSchema),daily:z.record(str,daySchema),focus:z.record(str,str),legacy:z.unknown().optional()})
+export const vaultSchema=z.object({version:z.literal(1),tasks:z.array(taskSchema),goals:z.array(goalSchema),courses:z.array(courseSchema),notes:z.array(noteSchema),journal:z.record(str,journalSchema),daily:z.record(str,daySchema),focus:z.record(str,str),legacy:z.unknown().optional(),knowledge:knowledgeSchema.optional()})
 export type Vault=z.infer<typeof vaultSchema>;export type Task=z.infer<typeof taskSchema>;export type Goal=z.infer<typeof goalSchema>;export type Course=z.infer<typeof courseSchema>;export type Note=z.infer<typeof noteSchema>
 export const key='life100-react-v1'
 export const today=()=>{const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
