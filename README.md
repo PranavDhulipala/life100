@@ -88,3 +88,7 @@ The Connectors page shows full URLs based on wherever you deploy the app.
 ## Design rule
 
 Using Life100 should take less time than living the day it records.
+
+## Workspace v2
+
+The new workspace adds a weekly planner, goal-linked tasks, editable roadmap, course progress, autosaving long-form journal, searchable/editable notes and global search. Existing local storage and optional snapshot sync remain compatible. Use Goals → Import workspace JSON to add a private roadmap (version 1; goals, courses, tasks, journal, focus). Never commit personal workspace files to a public repository. Connectors → JSON exports the complete app; Workspace Markdown exports readable goals, tasks, courses, notes and journal. Cloud push/pull is manual snapshot replacement, not conflict-resolving synchronization: back up both devices before pulling or switching devices. Notes require Save; journal saves while typing.
